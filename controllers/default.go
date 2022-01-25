@@ -101,9 +101,7 @@ func (c *MainController) FetchData() {
 	// c.Data["json"]= &Img
 	// c.ServeJSON()
 
-	type Image struct {
-		Url string `json:"url"`
-	}
+	
 
 	order := c.GetString("order")
 	mime_types := c.GetString("type")

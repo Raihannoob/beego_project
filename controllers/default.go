@@ -3,9 +3,6 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-
 	"github.com/beego/beego/v2/client/httplib"
 	beego "github.com/beego/beego/v2/server/web"
 )
@@ -79,54 +76,48 @@ func (c *MainController) Get() {
 }
 
 func (c *MainController) FetchData() {
-
-	// breed := c.GetString("breed")
-
-	// req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")
-	// req3.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-	// req3.Param("limit", "9")
-	// req3.Param("breed_id", breed)
-	// str3, err := req3.String()
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// fmt.Printf("t1: %T\n", str3)
-	// Img := []Images{}
-	// json.Unmarshal([]byte(str3), &Img)
-	// fmt.Println(Img)
-	// fmt.Println(str3)
-	// c.Data["images"] = &Img
-	// fmt.Println(Img)
-	// c.Data["json"]= &Img
-	// c.ServeJSON()
-
 	
+	// url := "https://api.thecatapi.com/v1/images/search?order=" + order + "&limit=" + limit + "&category_ids=" + category + "&breed_id=" + breed + "&mime_types=" + mime_types
 
+	// fmt.Println(url)
+
+	// req, _ := http.NewRequest("GET", url, nil)
+
+	// req.Header.Add("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
+
+	// res, _ := http.DefaultClient.Do(req)
+
+	// body, _ := ioutil.ReadAll(res.Body)
+
+	// img := []Images{}
+
+	// json.Unmarshal(body, &img)
+	// c.Data["images"] = &img
+
+	// c.Data["json"] = &img
+	// c.ServeJSON()
+	// //fmt.Println(a)
+
+	breed := c.GetString("breed")
 	order := c.GetString("order")
 	mime_types := c.GetString("type")
 	category := c.GetString("category")
-	breed := c.GetString("breed")
 	limit := c.GetString("limit")
-
-	url := "https://api.thecatapi.com/v1/images/search?order=" + order + "&limit=" + limit + "&category_ids=" + category + "&breed_id=" + breed + "&mime_types=" + mime_types
-
-	fmt.Println(url)
-
-	req, _ := http.NewRequest("GET", url, nil)
-
-	req.Header.Add("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-
-	res, _ := http.DefaultClient.Do(req)
-
-	body, _ := ioutil.ReadAll(res.Body)
-
-	img := []Images{}
-
-	json.Unmarshal(body, &img)
-	c.Data["images"] = &img
-
-	c.Data["json"] = &img
+	req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")
+	req3.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
+	req3.Param("limit", limit)
+	req3.Param("category_ids", category)
+	req3.Param("breed_id", breed)
+	req3.Param("order", order)
+	req3.Param("mime_types", mime_types)
+	str3, err := req3.String()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("t1: %T\n", str3)
+	Img := []Images{}
+	json.Unmarshal([]byte(str3), &Img)
+	c.Data["images"] = &Img
+	c.Data["json"]= &Img
 	c.ServeJSON()
-	//fmt.Println(a)
 }

@@ -21,10 +21,10 @@
             <div class="row  bg-light mb-2">
                     <div class="col-md-6  bg-light " style="position: relative">
                         <span>Order</span>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected value="Rand">Random</option>
-                            <option value="Desc">Desc</option>
-                            <option value="Asc">Asc</option>
+                        <select id="order" class="form-select" aria-label="Default select example">
+                            <option selected value="">Random</option>
+                            <option value="DESC">DESC</option>
+                            <option value="ASC">ASC</option>
                           </select>
                       
 
@@ -32,11 +32,10 @@
 
                     <div class="col-md-6 bg-light" style="position: relative">
                         <span>Type</span>  
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected value="gif,jpg,png" >ALL</option>
-                            <option value="gif">gif</option>
-                            <option value="jpg">jpg</option>
-                            <option value="png">png</option>
+                        <select id="type" class="form-select" aria-label="Default select example">
+                            <option selected value="" >ALL</option>
+                            <option value="png,jpg">Static</option>
+                            <option value="gif">Animated</option>
                           </select>
 
 
@@ -56,12 +55,11 @@
                         
 
                             <span>Category</span>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>None</option>
+                            <select id="category" class="form-select" aria-label="Default select example">
+                                <option value="" selected>None</option>
                                 {{range $key, $val := .Categorie}} 
                                 <option value="{{$val.Id}}">{{$val.Name}}</option>
-                                {{end}}
-                                
+                                {{end}}  
                               </select>
 
                          </div>
@@ -69,11 +67,10 @@
                         <div class="col-md-6 " style="position: relative">
                             <span>Breed</span>
                             <select id="breed" class="form-select" aria-label="Default select example">
-                                <option  selected>None</option>
+                                <option value="" selected>None</option>
                                 {{range $key, $val := .Breed}} 
                                 <option value="{{$val.Id}}">{{$val.Name}}</option>
                                 {{end}}
-                
                               </select>
 
                         </div>
@@ -99,15 +96,23 @@
   
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script>
-   $(document).on('change', '#breed', function() {
+   $(document).on('change', 'select', function() {
     
       let breed = $('#breed').val();
+      let order = $('#order').val();
+      let type = $('#type').val();
+      let category = $('#category').val();
+      let limit = $('#limit').val();
+
       $.ajax({
         type: 'GET',
         url: 'http://localhost:8082/fetch-data',
         data: {
+          "order": order,
+          "type": type,
+          "category": category,
           "breed": breed,
-          "limit":9
+          "limit": 9
         },
         success: function(response) {
           let data = response;

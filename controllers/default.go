@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+
 	"github.com/beego/beego/v2/client/httplib"
 	beego "github.com/beego/beego/v2/server/web"
 )
@@ -22,9 +23,9 @@ type Categorie struct {
 	Name string `json:"name"`
 }
 type Images struct {
-
 	Url string `json:"url"`
 }
+
 func (c *MainController) Get() {
 	req := httplib.Get("https://api.thecatapi.com/v1/categories")
 	req.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
@@ -57,7 +58,6 @@ func (c *MainController) Get() {
 	c.Data["Breed"] = bre1
 	fmt.Println(bre1)
 	c.TplName = "index.tpl"
-
 
 	req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")
 	req3.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
@@ -105,15 +105,13 @@ func (c *MainController) FetchData() {
 		Url string `json:"url"`
 	}
 
-	// order := c.GetString("order")
-	// mime_types := c.GetString("type")
-	// category := c.GetString("category")
+	order := c.GetString("order")
+	mime_types := c.GetString("type")
+	category := c.GetString("category")
 	breed := c.GetString("breed")
 	limit := c.GetString("limit")
 
-
-
-	url := "https://api.thecatapi.com/v1/images/search?breed_id=" + breed + "&limit=" + limit
+	url := "https://api.thecatapi.com/v1/images/search?order=" + order + "&limit=" + limit + "&category_ids=" + category + "&breed_id=" + breed + "&mime_types=" + mime_types
 
 	fmt.Println(url)
 
@@ -122,17 +120,15 @@ func (c *MainController) FetchData() {
 	req.Header.Add("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
 
 	res, _ := http.DefaultClient.Do(req)
-	
-	body, _ := ioutil.ReadAll(res.Body)
 
-	
+	body, _ := ioutil.ReadAll(res.Body)
 
 	img := []Images{}
 
 	json.Unmarshal(body, &img)
 	c.Data["images"] = &img
 
-	c.Data["json"]= &img
+	c.Data["json"] = &img
 	c.ServeJSON()
 	//fmt.Println(a)
 }

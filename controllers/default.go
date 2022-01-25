@@ -75,7 +75,7 @@ func (c *MainController) Get() {
 	c.TplName = "index.tpl"
 }
 
-func (c *MainController) FetchData() {
+func (c *MainController) GetData() {
 	
 	// url := "https://api.thecatapi.com/v1/images/search?order=" + order + "&limit=" + limit + "&category_ids=" + category + "&breed_id=" + breed + "&mime_types=" + mime_types
 
@@ -100,7 +100,7 @@ func (c *MainController) FetchData() {
 
 	breed := c.GetString("breed")
 	order := c.GetString("order")
-	mime_types := c.GetString("type")
+	mime_types := c.GetString("mime_types")
 	category := c.GetString("category")
 	limit := c.GetString("limit")
 	req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")

@@ -32,7 +32,7 @@
 
                     <div class="col-md-6 bg-light" style="position: relative">
                         <span>Type</span>  
-                        <select id="type" class="form-select" aria-label="Default select example">
+                        <select id="mime_types" class="form-select" aria-label="Default select example">
                             <option selected value="" >ALL</option>
                             <option value="png,jpg">Static</option>
                             <option value="gif">Animated</option>
@@ -118,16 +118,16 @@
     
       let breed = $('#breed').val();
       let order = $('#order').val();
-      let type = $('#type').val();
+      let mime_types = $('#mime_types').val();
       let category = $('#category').val();
       let limit = $('#limit').val();
 
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/fetch-data',
+        url: 'http://localhost:8080/GetData',
         data: {
           "order": order,
-          "type": type,
+          "mime_types": mime_types,
           "category": category,
           "breed": breed,
           "limit": limit

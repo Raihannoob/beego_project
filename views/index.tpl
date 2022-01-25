@@ -124,7 +124,7 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:8081/fetch-data',
+        url: 'http://localhost:8080/fetch-data',
         data: {
           "order": order,
           "type": type,

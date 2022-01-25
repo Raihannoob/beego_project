@@ -7,7 +7,6 @@ import (
 
 func init() {
     beego.Router("/", &controllers.MainController{})
-	beego.Router("/admin", &controllers.UserController{})
-	beego.Router("/admin/abcd", &controllers.UserController{},"get:Abcd")
-	beego.Router("/api", &controllers.ErrorController{})
+	beego.Router("/fetch-data", &controllers.MainController{}, "*:FetchData")
+
 }

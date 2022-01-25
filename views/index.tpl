@@ -20,7 +20,7 @@
         <!-- ROW1 -->
             <div class="row  bg-light mb-2">
                     <div class="col-md-6  bg-light " style="position: relative">
-                        <span>Order</span>
+                        <label class="form-label">Order</label>
                         <select id="order" class="form-select" aria-label="Default select example">
                             <option selected value="">Random</option>
                             <option value="DESC">DESC</option>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="col-md-6 bg-light" style="position: relative">
-                        <span>Type</span>  
+                        <label class="form-label">Type</label> 
                         <select id="mime_types" class="form-select" aria-label="Default select example">
                             <option selected value="" >ALL</option>
                             <option value="png,jpg">Static</option>
@@ -54,7 +54,7 @@
                         
                         
 
-                            <span>Category</span>
+                            <label class="form-label">Category</label> 
                             <select id="category" class="form-select" aria-label="Default select example">
                                 <option value="" selected>None</option>
                                 {{range $key, $val := .Categorie}} 
@@ -65,7 +65,7 @@
                          </div>
                         
                         <div class="col-md-6 " style="position: relative">
-                            <span>Breed</span>
+                            <label class="form-label">Breed</label> 
                             <select id="breed" class="form-select" aria-label="Default select example">
                                 <option value="" selected>None</option>
                                 {{range $key, $val := .Breed}} 
@@ -91,7 +91,7 @@
                 <div class="row  bg-light mb-5">
                     
                         <div class="col-md-4 mb-4" style="position: relative">
-                           <span>Per Page</span>
+                            <label class="form-label">Per Page</label> 
                               <select id="limit" class="form-select">
                                 <option value="3">3</option>
                                 <option value="6">6</option>

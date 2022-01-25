@@ -74,6 +74,7 @@
                               </select>
 
                         </div>
+                        
                 </div>
 
 
@@ -86,6 +87,23 @@
                             <img src="{{$val.Url}}" alt="" width="400px" height="500px"> 
                         </div>
                     {{end}}     
+                </div>
+                <div class="row  bg-light mb-5">
+                    
+                        <div class="col-md-4 mb-4" style="position: relative">
+                           <label class="form-label">Per Page</label>
+                              <select id="limit" class="form-select">
+                                <option value="3">3</option>
+                                <option value="6">6</option>
+                                <option value="9" selected>9</option>
+                                <option value="18">18</option>
+                                 <option value="24">24</option>
+                                  <option value="30">30</option>
+                                   <option value="40">40</option>
+                                    <option value="50">50</option>
+                              </select>
+                        </div>
+                      
                 </div>
                     
 
@@ -106,13 +124,13 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:8082/fetch-data',
+        url: 'http://localhost:8081/fetch-data',
         data: {
           "order": order,
           "type": type,
           "category": category,
           "breed": breed,
-          "limit": 9
+          "limit": limit
         },
         success: function(response) {
           let data = response;

@@ -106,7 +106,8 @@
         type: 'GET',
         url: 'http://localhost:8082/fetch-data',
         data: {
-          "breed": breed
+          "breed": breed,
+          "limit":9
         },
         success: function(response) {
           let data = response;

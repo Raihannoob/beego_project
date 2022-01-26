@@ -83,10 +83,17 @@
                 <div id="image" class="row  bg-light mb-5">
                     {{range $val := .images}} 
                          
-                        <div  class="col-md-4 mb-4" style="position: relative">
-                            <img src="{{$val.Url}}" alt="" width="400px" height="500px"> 
+                        <div  class="col-md-4 mb-4" style="height: 280px; width: 440px;">
+                            <!-- <img src="" alt="" width="400px" height="500px"> -->
+                        <div style="background-image: url({{$val.Url}}); height:280px; background-size: cover; background-repeat:no-repeat;">
+                            
                         </div>
-                    {{end}}     
+                        </div>
+                        
+                    {{end}} 
+
+
+
                 </div>
                 <div class="row  bg-light mb-5">
                     
@@ -140,8 +147,8 @@
             console.log(value.url);
           })
           $.each(data, function(key, value) {
-            html_data += '<div class="col-md-4 mb-4" style="position: relative">',
-            html_data += '<img src="' + value.url + '" width="400px" height="500px"></img>',
+            html_data += '<div class="col-md-4 mb-4" style=" height: 280px; width: 440px;">',
+            html_data += '<div style="background-image: url('+value.url+'); height:280px; background-size: cover; background-repeat:no-repeat;"></div>',
             html_data += '</div>'
           })
           console.log(html_data);

@@ -80,7 +80,7 @@
 
             <!-- ROW3 -->    
             
-                <div id="image" class="row  bg-light mb-5">
+                <div id="image" class="row  bg-light mb-3">
                     {{range $val := .images}} 
                          
                         <div  class="col-md-4 mb-4" style="height: 280px; width: 440px;">
@@ -95,7 +95,7 @@
 
 
                 </div>
-                <div class="row  bg-light mb-5">
+                <div class="row  bg-light mb-2">
                     
                         <div class="col-md-4 mb-4" style="position: relative">
                             <label class="form-label">Per Page</label> 

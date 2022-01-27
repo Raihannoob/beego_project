@@ -141,18 +141,16 @@
         },
         success: function(response) {
           let data = response;
-          console.log(data);
-          let html_data = "";
+          let html = "";
           $.each(data, function(key, value) {
             console.log(value.url);
           })
           $.each(data, function(key, value) {
-            html_data += '<div class="col-md-4 mb-4" style=" height: 280px; width: 440px;">',
-            html_data += '<div style="background-image: url('+value.url+'); height:280px; background-size: cover; background-repeat:no-repeat;"></div>',
-            html_data += '</div>'
+            html += '<div class="col-md-4 mb-4" style=" height: 280px; width: 440px;">',
+            html += '<div style="background-image: url('+value.url+'); height:280px; background-size: cover; background-repeat:no-repeat;"></div>',
+            html += '</div>'
           })
-          console.log(html_data);
-          $("#image").html(html_data);
+          $("#image").html(html);
         },
         error: function(error) {
           console.log(error)

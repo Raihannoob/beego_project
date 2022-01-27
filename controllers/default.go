@@ -77,27 +77,6 @@ func (c *MainController) Get() {
 
 func (c *MainController) GetData() {
 	
-	// url := "https://api.thecatapi.com/v1/images/search?order=" + order + "&limit=" + limit + "&category_ids=" + category + "&breed_id=" + breed + "&mime_types=" + mime_types
-
-	// fmt.Println(url)
-
-	// req, _ := http.NewRequest("GET", url, nil)
-
-	// req.Header.Add("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-
-	// res, _ := http.DefaultClient.Do(req)
-
-	// body, _ := ioutil.ReadAll(res.Body)
-
-	// img := []Images{}
-
-	// json.Unmarshal(body, &img)
-	// c.Data["images"] = &img
-
-	// c.Data["json"] = &img
-	// c.ServeJSON()
-	// //fmt.Println(a)
-
 	breed := c.GetString("breed")
 	order := c.GetString("order")
 	mime_types := c.GetString("mime_types")

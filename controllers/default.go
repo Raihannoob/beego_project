@@ -82,20 +82,22 @@ func (c *MainController) GetData() {
 	mime_types := c.GetString("mime_types")
 	category := c.GetString("category")
 	limit := c.GetString("limit")
-	req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")
-	req3.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-	req3.Param("limit", limit)
-	req3.Param("category_ids", category)
-	req3.Param("breed_id", breed)
-	req3.Param("order", order)
-	req3.Param("mime_types", mime_types)
-	str3, err := req3.String()
+	page := c.GetString("page")
+	req := httplib.Get("https://api.thecatapi.com/v1/images/search")
+	req.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
+	req.Param("limit", limit)
+	req.Param("category_ids", category)
+	req.Param("breed_id", breed)
+	req.Param("order", order)
+	req.Param("mime_types", mime_types)
+	req.Param("page", page)
+	str, err := req.String()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("t1: %T\n", str3)
+	fmt.Printf("t1: %T\n", str)
 	Img := []Images{}
-	json.Unmarshal([]byte(str3), &Img)
+	json.Unmarshal([]byte(str), &Img)
 	c.Data["images"] = &Img
 	c.Data["json"]= &Img
 	c.ServeJSON()

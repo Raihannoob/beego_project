@@ -110,6 +110,10 @@
                                 <option value="50">50</option>
                               </select>
                         </div>
+                        <div class="col-md-4  mt-4" style="position: relative">
+                          
+                          <button type="button" id="page" value="0" class="btn btn-primary btn-block">More</button>
+                      </div>
                       
                 </div>
                     
@@ -128,7 +132,8 @@
       let mime_types = $('#mime_types').val();
       let category = $('#category').val();
       let limit = $('#limit').val();
-
+      let page = 0;
+      document.getElementById("page").value= 0;
       $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/GetData',
@@ -137,7 +142,8 @@
           "mime_types": mime_types,
           "category": category,
           "breed": breed,
-          "limit": limit
+          "limit": limit,
+          "page":page
         },
         success: function(response) {
           let data = response;
@@ -157,6 +163,48 @@
         }
       })
     });
+
+
+
+
+    $(document).on('click', 'button', function() {
+    
+    let breed = $('#breed').val();
+    let order = $('#order').val();
+    let mime_types = $('#mime_types').val();
+    let category = $('#category').val();
+    let limit = $('#limit').val();
+    let page = document.getElementById("page").value = parseInt(document.getElementById("page").value) + 1;
+    console.log(page); 
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/GetData',
+      data: {
+        "order": order,
+        "mime_types": mime_types,
+        "category": category,
+        "breed": breed,
+        "limit": limit,
+        "page": page
+      },
+      success: function(response) {
+        let data = response;
+        let html = "";
+        $.each(data, function(key, value) {
+          console.log(value.url);
+        })
+        $.each(data, function(key, value) {
+          html += '<div class="col-md-4 mb-4" style=" height: 280px; width: 440px;">',
+          html += '<div style="background-image: url('+value.url+'); height:280px; background-size: cover; background-repeat:no-repeat;"></div>',
+          html += '</div>'
+        })
+        $("#image").html(html);
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    })
+  });
   </script>
 
 </body>

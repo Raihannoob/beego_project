@@ -23,8 +23,9 @@ type Images struct {
 	Url string `json:"url"`
 }
 
-func (c *MainController) Get() {
-	req := httplib.Get("https://api.thecatapi.com/v1/categories")
+func Goroutine(url string, ch chan string){
+	
+	req := httplib.Get(url)
 	req.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
 
 	str, err := req.String()
@@ -32,47 +33,40 @@ func (c *MainController) Get() {
 		panic(err)
 	}
 
-	fmt.Printf("t1: %T\n", str)
+	ch <- string(str)
+
+}
+
+
+func (c *MainController) Get() {
+	
+	categoryChannel := make(chan string)
+	breedChannel := make(chan string)
+	imageChannel := make(chan string)
+	go Goroutine("https://api.thecatapi.com/v1/categories", categoryChannel)
+	go Goroutine("https://api.thecatapi.com/v1/breeds",breedChannel)
+	go Goroutine("https://api.thecatapi.com/v1/images/search?limit=6", imageChannel)
+
 	cat1 := []Categorie{}
-	json.Unmarshal([]byte(str), &cat1)
-	fmt.Println(cat1)
-	fmt.Println(str)
+	json.Unmarshal([]byte(<-categoryChannel), &cat1)
+
+	bre1 := []Breed{}
+	json.Unmarshal([]byte(<-breedChannel), &bre1)
+
+
+	Img := []Images{}
+	json.Unmarshal([]byte(<-imageChannel), &Img)
+
+	close(categoryChannel)
+	close(breedChannel)
+	close(imageChannel)
 
 	c.Data["Categorie"] = cat1
-
-	req2 := httplib.Get("https://api.thecatapi.com/v1/breeds?attach_breed=0")
-	req.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-	str2, err := req2.String()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("t1: %T\n", str2)
-	bre1 := []Breed{}
-	json.Unmarshal([]byte(str2), &bre1)
-	fmt.Println(bre1)
-	fmt.Println(str2)
-	c.Data["Breed"] = bre1
-	fmt.Println(bre1)
-	c.TplName = "index.tpl"
-
-	req3 := httplib.Get("https://api.thecatapi.com/v1/images/search")
-	req3.Header("x-api-key", "776a017e-416d-47f5-abbb-599b79a2329d")
-	req3.Param("limit", "9")
-
-	str3, err := req3.String()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("t1: %T\n", str3)
-	Img := []Images{}
-	json.Unmarshal([]byte(str3), &Img)
-	fmt.Println(Img)
-	fmt.Println(str3)
+	c.Data["Breed"] = bre1	
 	c.Data["images"] = &Img
 	fmt.Println(Img)
-	c.TplName = "index.tpl"
+	c.TplName = "index.tpl"	
+
 }
 
 func (c *MainController) GetData() {

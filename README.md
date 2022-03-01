@@ -100,9 +100,9 @@ go mod tidy
 
 ## Feedback
 
-If you have any feedback, please reach out to us at tanvir@w3engineers.com
+If you have any feedback, please reach out to us at raihan.tanvir961@gmail.com
 
 
 ## 🚀 About Me
-I'm a Softwere Engineer Intern...
+I'm a Softwere Engineer.
 
